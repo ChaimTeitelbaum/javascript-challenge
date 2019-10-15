@@ -1,4 +1,4 @@
-// UFO dataset of sightings
+// UFO dataset of sightings by Chaim Teitelbaum Colombie Engineering BCS - October 2019 - New York 
 
 // from data.js
 var tData = data;
@@ -22,27 +22,27 @@ function deltbody() {
     .selectAll("td").remove();
 };
 
-// initial display of all UFO sightings
+// start with showing full UFO dataset
 console.log(tData);
 tLoad(tData);
 
-// Filter button
+// Button to filter dataset
 var button = d3.select("#filter-btn");
 
-// filter database
+// filter dataset
 button.on("click", function(event) {
   d3.event.preventDefault();
   deltbody();
-  var dateInput = d3.select("#datetime").property("value");
+  var date = d3.select("#datetime").property("value");
   
   // if no date input show full database
-  if (dateInput.trim() === "" ) {
+  if (date.trim() === "" ) {
     var tDataFiltere = tData;
   }
   else {
      
     var tDataFiltered = tData.filter(ufoData => 
-      ufoData.datetime === dateInput.trim());
+      ufoData.datetime === date.trim());
   };
 
   // if no records found show message 
