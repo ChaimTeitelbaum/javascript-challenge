@@ -1,51 +1,52 @@
-// UFO sightings from UFO records dataset
+// UFO dataset of sightings
 
 // from data.js
-var tableData = data;
+var tData = data;
 
-// function to display UFO sightings
-function tableDisplay(ufoSightings) {
+// function to load dataset
+function tLoad(ufoData) {
   var tbody = d3.select("tbody");
-  ufoSightings.forEach((ufoRecord) => {
+  ufoData.forEach((ufoDataset) => {
     var row = tbody.append("tr");
-    Object.entries(ufoRecord).forEach(([key, value]) => {
+    Object.entries(ufoDataset).forEach(([key, value]) => {
       var cell = row.append("td");
       cell.html(value);
     });
   });
 };
 
-// clear the table for new data
-//function deleteTbody() {
-//  d3.select("tbody")
-//    .selectAll("tr").remove()
- //   .selectAll("td").remove();
-//};
+// Function to clear old data make room for new data
+function deltbody() {
+  d3.select("tbody")
+    .selectAll("tr").remove()
+    .selectAll("td").remove();
+};
 
 // initial display of all UFO sightings
-console.log(tableData);
-tableDisplay(tableData);
+console.log(tData);
+tLoad(tData);
 
-// 'Filter Table' button
+// Filter button
 var button = d3.select("#filter-btn");
 
-// filter the database and display
+// filter database
 button.on("click", function(event) {
   d3.event.preventDefault();
-  deleteTbody();
+  deltbody();
   var dateInput = d3.select("#datetime").property("value");
   
+  // if no date input show full database
   if (dateInput.trim() === "" ) {
-    // display the whole database if the date field has no date
-    var filteredData = tableData;
-  } else {
-    // otherwise, display the filtered dataset  
-    var filteredData = tableData.filter(ufoSighting => 
-      ufoSighting.datetime === dateInput.trim());
+    var tDataFiltere = tData;
+  }
+  else {
+     
+    var tDataFiltered = tData.filter(ufoData => 
+      ufoData.datetime === dateInput.trim());
   };
 
-  // display message if no records found
-  if (filteredData.length == 0) {
+  // if no records found show message 
+  if (tDataFiltere.length == 0) {
     d3.select("tbody")
       .append("tr")
       .append("td")
@@ -53,6 +54,6 @@ button.on("click", function(event) {
         .html("<h4>No Records Found</h4>");
   };
 
-  console.log(filteredData);
-  tableDisplay(filteredData);
+  console.log(tDataFiltere);
+  tDisplay(tDataFiltere);
 });
