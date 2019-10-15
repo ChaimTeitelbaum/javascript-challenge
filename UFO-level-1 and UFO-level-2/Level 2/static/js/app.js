@@ -1,4 +1,5 @@
-// UFO sightings from UFO records dataset Lvl2
+// UFO dataset of sightings by Chaim Teitelbaum Colombie Engineering BCS - October 2019 - New York 
+
 // from data.js
 var tData = data;
 
@@ -36,10 +37,10 @@ button.on("click", function(event) {
 	var idName = inpId[i].id;
 	var field = d3.select("#" + idName).property("value");
 	
-	// treat empty or space-only fields as a search for ALL for that field
+	// If white-space search for anything in that field
 	if (field.trim() !== "") {
 	  var tDataFiltered = tDataFiltered.filter(ufoData =>
-	    // match as case insensitive
+	    // change search into uppercase
 		ufoData[idName].toUpperCase().trim() ===
 		field.toUpperCase().trim());
 	};
@@ -53,7 +54,7 @@ button.on("click", function(event) {
         .attr("colspan", 7)
         .html("<h4>No Records Found</h4>");
   };
-  
+  //Return filtered data 
   console.log(tDataFiltered);
   tLoad(tDataFiltered);
 });
