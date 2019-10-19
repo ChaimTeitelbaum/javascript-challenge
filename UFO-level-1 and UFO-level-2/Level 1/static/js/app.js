@@ -14,6 +14,10 @@ function tLoad(ufoData) {
     });
   });
 };
+  
+// start with showing full UFO dataset
+console.log(tData);
+tLoad(tData);
 
 // Function to clear old data make room for new data
 function deltbody() {
@@ -22,38 +26,42 @@ function deltbody() {
     .selectAll("td").remove();
 };
 
-// start with showing full UFO dataset
-console.log(tData);
-tLoad(tData);
-
 // Button to filter dataset
 var button = d3.select("#filter-btn");
 
-// filter dataset
+// filter the dataset
 button.on("click", function(event) {
+  
   d3.event.preventDefault();
   deltbody();
-  var date = d3.select("#datetime").property("value");
   
-  // if no date input show full database
-  if (date.trim() === "" ) {
-    var tDataFiltere = tData;
-  }
-  else {
-     
-    var tDataFiltered = tData.filter(ufoData => 
-      ufoData.datetime === date.trim());
+  var tDataFiltered = tData;
+  var inpId = document.getElementsByClassName("form-control");
+  
+  // Loop trough the inputs
+  for (var i = 0; i < inpId.length; i++) {
+	
+	var idName = inpId[i].id;
+	var field = d3.select("#" + idName).property("value");
+	
+	// If white-space search for anything in that field
+	if (field.trim() !== "") {
+	  var tDataFiltered = tDataFiltered.filter(ufoData =>
+	    // change search into uppercase
+		ufoData[idName].toUpperCase().trim() ===
+		field.toUpperCase().trim());
+	};
   };
-
-  // if no records found show message 
-  if (tDataFiltere.length == 0) {
+ 
+  // Message if no records found
+  if (tDataFiltered.length == 0) {
     d3.select("tbody")
       .append("tr")
       .append("td")
         .attr("colspan", 7)
         .html("<h4>No Records Found</h4>");
   };
-
-  console.log(tDataFiltere);
-  tDisplay(tDataFiltere);
+  //Return filtered data 
+  console.log(tDataFiltered);
+  tLoad(tDataFiltered);
 });
