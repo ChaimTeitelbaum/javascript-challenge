@@ -1,3 +1,5 @@
+// UFO dataset of sightings by Chaim Teitelbaum Colombie Engineering BCS - October 2019 - New York 
+
 // from data.js
 var tableData = data;
 
