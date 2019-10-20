@@ -45,7 +45,11 @@ button.on("click", function(event) {
     var tDataFiltered = tData.filter(ufoData => 
       ufoData.datetime === date.trim());
   };
-
+  else {
+     
+    var tDataFiltered = tData.filter(ufoData => 
+      ufoData.City === City.trim());
+  };
   // if no records found show message 
   if (tDataFiltered.length == 0) {
     d3.select("tbody")
